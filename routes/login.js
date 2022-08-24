@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 			user.password
 		);
 		if (!validPassword)
-			return res.status(402).send({ message: "Invalid Email or Password" });
+			return res.status(402).send({ message: "Invalid Password" });
 
 		if(validPassword){
 			const accessToken =jwt.sign(
