@@ -9,7 +9,7 @@ const allRoutes = {
     deleteUser : "/deleteUser/:email"
  }
 
-router.post(allRoutes.getUsers, async (req,res) => {
+router.get(allRoutes.getUsers, async (req,res) => {
 
     try{
         console.log("in try block");
@@ -25,7 +25,7 @@ router.post(allRoutes.getUsers, async (req,res) => {
 
 });
 
-router.post(allRoutes.getUser, async (req,res) => {
+router.get(allRoutes.getUser, async (req,res) => {
 
     try{
         const results = await User.findOne({email:req.params.email});
@@ -63,16 +63,13 @@ router.post(allRoutes.addUser, (req,res) => {
         console.log(error);
         return res.send(401).send({message : "cant save user"});
     }
-
 });
 
-router.post(allRoutes.updateUser, async (req,res) => {
+router.put(allRoutes.updateUser, async (req,res) => {
 
     try{
         const currentUser = await User.findOne({email : req.params.email});
-        console.log(currentUser);
         const updateUser = req.body;
-
        const updation = await User.updateMany({email : req.params.email}, {$set : updateUser});
         if(updation)
             res.send("done")
@@ -81,10 +78,9 @@ router.post(allRoutes.updateUser, async (req,res) => {
     catch(error){
         console.log(error);
     }
-
 });
 
-router.post(allRoutes.deleteUser,async (req,res) => {
+router.delete(allRoutes.deleteUser,async (req,res) => {
 
     try{
         console.log(req.params.email);
@@ -96,8 +92,6 @@ router.post(allRoutes.deleteUser,async (req,res) => {
         console.log(error);
         return res.send(401).send({message : "cant delete user"});
     }
-
 });
-
 
 module.exports = router;

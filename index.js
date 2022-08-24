@@ -10,7 +10,6 @@ const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
 
 const app = express();
-
 //db connection
 connection();
 
@@ -32,13 +31,11 @@ app.use("/signup",signup);
 app.use("/refresh",require("./routes/refreshToken"));
 app.use('/logout', require('./routes/logout'));
 
-
-app.use(verifyJWT)
+app.use(verifyJWT) //this middleware will be called for the routes mentioned below this
 app.use("/user",user);
+//one more route will be added,for getAllPRoducts API for the main page 
 
-
-
-const port = 3500;
+const port = process.env.PORT || 3500;
 
 app.listen(port, (error)=> {
     if(!error){

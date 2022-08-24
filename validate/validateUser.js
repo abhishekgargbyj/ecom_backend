@@ -1,7 +1,5 @@
-const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const passwordComplexity = require("joi-password-complexity");
-
 
 const validate = (data) => {
 	const schema = Joi.object({
@@ -17,7 +15,5 @@ const validate = (data) => {
 	});
 	return schema.validate(data);
 };
-
-
 
 module.exports = validate;
