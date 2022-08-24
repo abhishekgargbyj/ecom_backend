@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: './.env' });
 const express = require("express");
 const cors = require("cors");
 var bodyParser = require('body-parser')
@@ -38,11 +38,10 @@ app.use(verifyJWT) //this middleware will be called for the routes mentioned bel
 app.use("/user", user);
 //one more route will be added,for getAllPRoducts API for the main page 
 
-const port = process.env.PORT || 3500;
+
 
 //db connection
-const URI = 'mongodb://byjusweb_dev:LvHUuHBUtScCHrfQ@byjusweb-development-shard-00-00.p3frz.mongodb.net:27017,byjusweb-development-shard-00-01.p3frz.mongodb.net:27017,byjusweb-development-shard-00-02.p3frz.mongodb.net:27017/newOnboarding?authSource=admin&replicaSet=ByjusWeb-Development-shard-0&readPreference=primary&tls=true'
-
+const URI = process.env.URI;
 mongoose.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -64,6 +63,7 @@ mongoose.connection.on('error', (err) => {
 app.use(express.json());
 app.use(cors());
 
+const port = process.env.PORT_NUMBER;
 app.use(express.json());
 app.use('/products', products);
 app.use('/orders', orders);
