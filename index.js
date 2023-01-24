@@ -22,6 +22,7 @@ app.use('/products', products);  // /poducts/
 app.use('/user',user)
 app.use('/', login);
 //app.use('/',logout)
+app.use('/orders',orders);
 app.use(notFound)
 
 const start = async()=>{
