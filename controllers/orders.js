@@ -1,6 +1,6 @@
 const asyncWrapper = require('../middleware/async')
-const Order=require('../models/orders');
-const User=require('../models/user');
+const Order=require('../model/orders');
+const User=require('../model/user');
 const email='';
 const getAllOrders = asyncWrapper(async(req,res) =>{
     // const order = await Order.find({},{"total":0});

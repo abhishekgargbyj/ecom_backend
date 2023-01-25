@@ -1,8 +1,8 @@
 const express=require('express')
 const router=express.Router();
-const Order=require('../models/orders');
+const Order=require('../model/orders');
 const asyncWrapper = require('../middleware/async')
-const {getAllOrders,createOrder, deleteOrder, updateOrder, getOrder}=require('../controllers/oders')
+const {getAllOrders,createOrder, deleteOrder, updateOrder, getOrder}=require('../controllers/orders')
 
 router.route('/').get(getAllOrders).post(createOrder)
 // router.get('/ok',asyncWrapper(async(req,res)=>{
