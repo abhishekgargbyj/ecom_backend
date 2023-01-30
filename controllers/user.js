@@ -43,6 +43,14 @@ const getUser = asyncWrapper(async(req,res)=>{
     }
     res.status(200).json({user});
 })
+const getUserByEmail = asyncWrapper(async(req,res)=>{
+    const emailId=req.query.emailId;
+    const user = await User.find({ email:emailId})
+    if(!user){
+        res.send(`No User `);
+    }
+    res.status(200).json({user});
+})
 
 const updateUser = asyncWrapper(async(req,res)=>{
     const {id: UserID} = req.params
@@ -71,4 +79,5 @@ module.exports = {
     getUser,
     updateUser,
     deleteUser,
+    getUserByEmail,
 }

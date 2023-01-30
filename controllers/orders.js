@@ -1,30 +1,28 @@
 const asyncWrapper = require('../middleware/async')
 const Order=require('../model/orders');
 const User=require('../model/user');
-const email='';
+
 const getAllOrders = asyncWrapper(async(req,res) =>{
-    // const order = await Order.find({},{"total":0});
     const order = await Order.find({});
     res.status(200).json({ order });
 });
 const getOrder = asyncWrapper(async(req,res) =>{
     const {id:OrderID}=req.params;
-    // req.json({id:req.params.id})
     const order = await Order.findOne({_id:OrderID});
     if(!order){
         res.status(500).json('No order found');
-        // console.log('okokokok');
     }
-    // console.log('ababaab');
-    // res.send({order});
     res.status(201).json({ order });
 
 });
 
+const getOrdersByEmail = asyncWrapper(async(req,res) =>{
+    const email=req.query.emailId;
+    const order = await Order.find({userID:email});
+    res.status(200).json({ order });
+});
 const createOrder = asyncWrapper(async(req,res) =>{
-    // req.body.userID="abc1@gmail.com"
     const order = await Order.create(req.body);
-    // console.log(req.body);
     res.status(202).json({order});
 })
 const updateOrder = asyncWrapper(async(req,res,next) =>{
@@ -53,4 +51,5 @@ module.exports = {
     createOrder,
     updateOrder,
     deleteOrder,
+    getOrdersByEmail,
 }

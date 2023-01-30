@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const User = require ('./user')
 const shipping=new mongoose.Schema({
   address:{
     type:String,
@@ -23,6 +22,9 @@ const items=new mongoose.Schema({
   name:{
     type:String,
   },
+  id:{
+    type:String
+  },
   price:{
     type:Number
   },
@@ -32,7 +34,7 @@ const items=new mongoose.Schema({
 })
 const orders = new mongoose.Schema({
     cart: {
-      type: [items]
+      type: items
     },
     total: {
       type: Number
