@@ -25,6 +25,17 @@ const createOrder = asyncWrapper(async(req,res) =>{
     const order = await Order.create(req.body);
     res.status(202).json({order});
 })
+
+const doPay=asyncWrapper(async(req,res)=>{
+    const refid=req.query.refid;
+    // console.log(refid);
+    const order = await Order.updateOne({ referenceId: refid},{$set: {orderStatus:'Done',paymentStatus:'Done'}})
+    if(!order){
+        res.send('No order found');
+    }
+    res.status(200).json({order});
+})
+
 const updateOrder = asyncWrapper(async(req,res,next) =>{
     const {id:OrderID}=req.params;
     const order = await Order.findOneAndUpdate({ _id: OrderID}, req.body, {
@@ -52,4 +63,5 @@ module.exports = {
     updateOrder,
     deleteOrder,
     getOrdersByEmail,
+    doPay,
 }

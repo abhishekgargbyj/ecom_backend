@@ -2,34 +2,37 @@ const mongoose = require('mongoose');
 const shipping=new mongoose.Schema({
   address:{
     type:String,
-    required:true
+    // required:true
   },
   city:{
     type:String,
-    required:true
+    // required:true
   },
   state:{
     type:String,
-    required:true
+    // required:true
   },
   postalCode:{
     type:String,
-    required:true
+    // required:true
   }
 });
 
 const items=new mongoose.Schema({
   name:{
     type:String,
+    // required:true
   },
   id:{
-    type:String
+    type:String,
+    // required:true
   },
   price:{
-    type:Number
+    type:Number,
+    // required:true
   },
   quantity:{
-    type:Number
+    type:Number,
   }
 })
 const orders = new mongoose.Schema({
@@ -46,8 +49,12 @@ const orders = new mongoose.Schema({
       type: Date,
       default: Date.now
     },
-    userID: {
+    referenceId:{
       type: String
+    },
+    userID: {
+      type: String,
+      // required:true
     },
     orderStatus:{
       type:String
