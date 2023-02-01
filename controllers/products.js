@@ -40,10 +40,19 @@ const deleteProduct =  asyncWrapper(async(req,res,next)=>{
     }
     res.status(200).json({product});
 })
+
+const getProductByName = asyncWrapper(async(req,res)=>{
+    const pid=req.query.pid;
+    // console.log(pid);
+    const product = await Product.find({id:pid});
+    res.status(200).json({ product });
+})
+
 module.exports = {
     getAllProducts, 
     createProduct,
     getProduct,
     updateProduct,
     deleteProduct,
+    getProductByName,
 }

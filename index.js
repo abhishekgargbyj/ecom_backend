@@ -3,6 +3,7 @@ const app       = express();
 const products  = require('./routes/products')
 const user      = require('./routes/user')
 const login     = require('./routes/login') 
+const orders     = require('./routes/orders') 
 const notFound  = require('./middleware/notFound');
 const connectDB = require('./db/connect')
 const cors      = require('cors')
@@ -22,6 +23,7 @@ app.use('/products', products);  // /poducts/
 app.use('/user',user)
 app.use('/', login);
 //app.use('/',logout)
+app.use('/orders',orders);
 app.use(notFound)
 
 const start = async()=>{
