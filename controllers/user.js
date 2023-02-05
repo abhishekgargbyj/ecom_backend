@@ -26,11 +26,14 @@ const getAllUser = asyncWrapper(async(req,res) =>{
 
 const registerUser = asyncWrapper(async(req,res) =>{
     const user = req.body;
+
+    console.log(user)
     if(!user.email || !user.password || !user.first_name || !user.last_name){
         return res.status(400).json({ 'message': 'Any of the one requried credeitials are not mentioned' });
     }
     let hashedPassword = await hashPassword(user.password);
     user.password =  hashedPassword;
+    if(user.email === "admin@byjus.com") user.roles =  {User: 1, Admin: 2};
     await User.create(user); 
     res.status(201).json({user});
 })
@@ -40,14 +43,6 @@ const getUser = asyncWrapper(async(req,res)=>{
     const user = await User.findOne({ _id : UserID })
     if(!user){
         res.send(`No User with id: ${id}`);
-    }
-    res.status(200).json({user});
-})
-const getUserByEmail = asyncWrapper(async(req,res)=>{
-    const emailId=req.query.emailId;
-    const user = await User.find({ email:emailId})
-    if(!user){
-        res.send(`No User `);
     }
     res.status(200).json({user});
 })
@@ -69,6 +64,15 @@ const deleteUser =  asyncWrapper(async(req,res)=>{
     const user = await User.findOneAndDelete({ _id: UserID});
     if(!user){
         res.send(`No User with id: ${id}`);
+    }
+    res.status(200).json({user});
+})
+
+const getUserByEmail = asyncWrapper(async(req,res)=>{
+    const emailId=req.query.emailId;
+    const user = await User.find({ email:emailId})
+    if(!user){
+        res.send(`No User `);
     }
     res.status(200).json({user});
 })

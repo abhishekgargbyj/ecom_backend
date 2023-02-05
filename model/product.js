@@ -13,14 +13,15 @@ const ProductSchema = new mongoose.Schema({
     name: {
         type: String
     },
-    id:{
-        type:String
+    id: {
+        type: String
     },
     price: {
         type: Number
     },
     isAvailable: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     description: {
         type: String
@@ -28,6 +29,9 @@ const ProductSchema = new mongoose.Schema({
     reviews: {
         type: [ReviewSchema],
         default: []
+    },
+    image: {
+        type: String
     }
 })
 
