@@ -3,6 +3,7 @@ const app       = express();
 const products  = require('./routes/products')
 const user      = require('./routes/user')
 const login     = require('./routes/login') 
+const logout    = require('./routes/logout')
 const orders     = require('./routes/orders') 
 const notFound  = require('./middleware/notFound');
 const connectDB = require('./db/connect')
@@ -12,18 +13,19 @@ const cookieParser = require('cookie-parser')
 
 require("dotenv").config();
 
-
+app.use(cors(corsOptions));
 app.use(express.static('./public'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cors(corsOptions));
-app.use('/products', products);  // /poducts/
+
 app.use('/user',user)
+app.use('/products', products); 
 app.use('/', login);
-//app.use('/',logout)
+app.use('/',logout)
 app.use('/orders',orders);
+app.use('/refresh', require('./routes/refresh'));
 app.use(notFound)
 
 const start = async()=>{
@@ -40,6 +42,3 @@ const start = async()=>{
 }
 
 start();
-// comment1
-// comment-master
-// comment-masterok

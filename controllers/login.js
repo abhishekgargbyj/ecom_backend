@@ -23,10 +23,16 @@ const loginUser = asyncWrapper(async(req,res)=>{
     }
     const isPasswordCorrect = await verifyPassword(req.body.password,user.password);
     if(isPasswordCorrect){
+        let roles =  Object.values(user.roles).filter(Boolean);
         const accessToken = jwt.sign(
-            { "email": user.email},
-            process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn: '120s'}
+           {
+                "UserInfo": {
+                    "email": user.email,
+                    "roles": roles
+                }
+           },
+           process.env.ACCESS_TOKEN_SECRET,
+            {expiresIn: '600s'}
         )
 
         const refreshToken = jwt.sign(
@@ -36,8 +42,9 @@ const loginUser = asyncWrapper(async(req,res)=>{
         );
         user.refreshToken = refreshToken;
         const result = await user.save();
-        res.cookie('jwt',refreshToken,{httpOnly: true, secret: true, sameSite: 'None', maxAge: 24*60*60*100})
-        res.json({accessToken})
+        res.cookie('jwt', refreshToken, { secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
+        console.log("login", roles)
+        res.json({roles,accessToken})
     }else{
         res.sendStatus(401);    
     }
