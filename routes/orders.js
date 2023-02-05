@@ -13,5 +13,4 @@ router.route('/myorders').get(verifyJWT,getOrdersByEmail)
 router.route('/pay').patch(doPay);
 router.route('/:id').get(verifyJWT,getOrder).patch(verifyJWT,updateOrder).delete(verifyJWT,deleteOrder);
 
-
 module.exports=router;
